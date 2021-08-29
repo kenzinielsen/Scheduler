@@ -1,9 +1,27 @@
-//current date to be displayed when you first open the page
-//current time between 9-5
+var textArea = $(".col-10");
+var currentHour = moment().hours();
+
+currentDay.innerHTML = moment().format('MMMM Do YYYY');
+
+$(".saveBtn").click(function() {
+    var value = $(this).siblings(".col-10").val()
+    console.log(value)
+    var id = $(this).parent().attr("id")
 
 
-var lead = document.querySelector(".lead");
+    localStorage.setItem(id, value)
+})
 
-function lead() {
-   moment();
-};
+$(".time-block").each(function() {
+    var id = $(this).attr("id")
+    var appts = localStorage.getItem(id)
+    $(this).find(textArea).val(appts)
+
+    if (id > currentHour) {
+        $(this).addClass("future")
+    } else if (id === currentHour) {
+            $(this).addClass("present")
+    } else {
+            $(this).addClass("past")
+    }
+})
